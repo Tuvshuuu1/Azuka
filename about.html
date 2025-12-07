@@ -6,7 +6,7 @@
   <meta name="description" content="Бидний түүх — хамтдаа бүтээсэн дурсамж, инээд, мөрөөдөл.">
   <title>Бидний тухай — Couple</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* Reset болон үндсэн стийл */
     * {
@@ -18,14 +18,22 @@
     :root {
       --primary-color: #ff6b6b;
       --primary-dark: #ff5252;
+      --primary-light: #ffd6d6;
       --secondary-color: #4ecdc4;
-      --text-color: #333;
-      --text-light: #666;
-      --bg-light: #f9f9f9;
-      --border-color: #eee;
-      --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      --radius: 8px;
-      --accent: #ff6b6b;
+      --accent-color: #ffd93d;
+      --text-color: #2d3748;
+      --text-light: #718096;
+      --bg-light: #f7fafc;
+      --bg-white: #ffffff;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --gradient-primary: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+      --gradient-secondary: linear-gradient(135deg, #4ecdc4 0%, #6ae2d9 100%);
     }
 
     html {
@@ -34,10 +42,10 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      line-height: 1.6;
+      line-height: 1.7;
       color: var(--text-color);
-      background-color: #fff;
-      overflow-x: hidden;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
     }
 
     .container {
@@ -48,11 +56,13 @@
 
     /* Header стийл */
     .site-header {
-      background-color: #fff;
-      box-shadow: var(--shadow);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-sm);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .header-inner {
@@ -67,13 +77,19 @@
       align-items: center;
       text-decoration: none;
       color: var(--text-color);
-      font-weight: 700;
-      font-size: 1.25rem;
+      font-weight: 800;
+      font-size: 1.5rem;
+      gap: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover {
+      transform: scale(1.05);
     }
 
     .brand-emoji {
-      margin-right: 8px;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
 
     .nav-toggle {
@@ -81,138 +97,300 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 5px;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.3s;
+    }
+
+    .nav-toggle:hover {
+      background-color: var(--primary-light);
     }
 
     .main-nav ul {
       display: flex;
       list-style: none;
-      gap: 25px;
+      gap: 30px;
     }
 
     .main-nav a {
       text-decoration: none;
       color: var(--text-color);
-      font-weight: 500;
-      transition: color 0.3s;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
       position: relative;
     }
 
     .main-nav a:hover {
       color: var(--primary-color);
+      background-color: var(--primary-light);
+    }
+
+    .main-nav a.active {
+      color: var(--primary-color);
+      background-color: var(--primary-light);
     }
 
     .main-nav a::after {
       content: '';
       position: absolute;
-      bottom: -5px;
-      left: 0;
+      bottom: -2px;
+      left: 50%;
       width: 0;
       height: 2px;
-      background-color: var(--primary-color);
-      transition: width 0.3s;
+      background: var(--gradient-primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
     }
 
-    .main-nav a:hover::after {
-      width: 100%;
+    .main-nav a:hover::after,
+    .main-nav a.active::after {
+      width: 80%;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
+      gap: 15px;
     }
 
     .profile-btn {
-      background: none;
+      background: var(--gradient-primary);
       border: none;
-      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       cursor: pointer;
-      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .profile-btn:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-md);
     }
 
     /* Main content */
     main {
       min-height: calc(100vh - 140px);
-      padding: 40px 0;
+      padding: 80px 0;
     }
 
-    .center {
-      max-width: 900px;
-      margin: 48px auto;
-      padding: 0 20px;
-      text-align: left;
-    }
-
-    .center h2 {
+    .about-hero {
       text-align: center;
-      color: var(--accent);
-      font-size: 2.5rem;
-      margin-bottom: 30px;
+      margin-bottom: 80px;
+      position: relative;
     }
 
-    .center p {
-      line-height: 1.6;
-      color: #333;
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    .about-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .about-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .story-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--bg-white);
+      padding: 60px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      border: 1px solid var(--border-color);
+    }
+
+    .story-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .story-timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .story-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gradient-primary);
+      opacity: 0.3;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding: 25px;
+      background: var(--bg-light);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateX(10px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -47px;
+      top: 30px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      border: 3px solid var(--bg-white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .timeline-year {
+      display: inline-block;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .timeline-content {
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+
+    .timeline-content p {
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      background: linear-gradient(120deg, var(--primary-light) 0%, var(--primary-light) 100%);
+      background-repeat: no-repeat;
+      background-size: 100% 0.3em;
+      background-position: 0 88%;
+      transition: background-size 0.3s ease;
+      padding: 0.1em 0.2em;
+      border-radius: 4px;
+    }
+
+    .love-message {
+      text-align: center;
+      margin-top: 60px;
+      padding: 40px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .love-message::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+
+    .love-message-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .love-message h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .love-message p {
       font-size: 1.1rem;
+      line-height: 1.8;
+      opacity: 0.95;
     }
 
     /* Footer стийл */
     .site-footer {
-      background-color: var(--bg-light);
-      padding: 50px 0 20px;
-      margin-top: 60px;
+      background: var(--text-color);
+      color: white;
+      padding: 60px 0 20px;
     }
 
     .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-    }
-
-    .footer-col {
-      flex: 1;
-      min-width: 250px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 40px;
     }
 
     .footer-col h4 {
+      color: white;
       margin-bottom: 20px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      font-weight: 700;
     }
 
     .brand-compact {
       display: flex;
       align-items: center;
-      margin-bottom: 15px;
-      font-size: 1.2rem;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      font-weight: 800;
     }
 
     .muted {
-      color: var(--text-light);
-      margin-bottom: 20px;
-    }
-
-    .footer-newsletter__form {
-      display: flex;
-      margin-top: 15px;
-    }
-
-    .footer-newsletter__email {
-      flex: 1;
-      padding: 10px 15px;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius) 0 0 var(--radius);
-      font-family: inherit;
-    }
-
-    .footer-newsletter__form button {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 0 20px;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      cursor: pointer;
-      font-weight: 600;
+      color: #a0aec0;
+      margin-bottom: 25px;
+      line-height: 1.6;
     }
 
     .footer-links {
@@ -220,73 +398,83 @@
     }
 
     .footer-links li {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .footer-links a {
       text-decoration: none;
-      color: var(--text-light);
-      transition: color 0.3s;
+      color: #a0aec0;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .footer-links a:hover {
-      color: var(--primary-color);
+      color: white;
     }
 
     .social {
       display: flex;
       gap: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .social-link {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      background-color: white;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
     }
 
     .social-link:hover {
+      background: var(--primary-color);
       transform: translateY(-3px);
     }
 
     .copyright {
-      color: var(--text-light);
+      color: #a0aec0;
       font-size: 0.9rem;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .back-to-top {
-      background: none;
-      border: 1px solid var(--border-color);
-      padding: 8px 15px;
-      border-radius: var(--radius);
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: var(--radius-lg);
       cursor: pointer;
-      color: var(--text-light);
-      transition: all 0.3s;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 20px auto 0;
     }
 
     .back-to-top:hover {
-      background-color: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
+      background: var(--primary-dark);
+      transform: translateY(-2px);
     }
 
-    /* Accessibility */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+    /* Animation classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Mobile styles */
@@ -300,8 +488,9 @@
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: white;
-        box-shadow: var(--shadow);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-md);
         display: none;
       }
       
@@ -312,29 +501,31 @@
       .main-nav ul {
         flex-direction: column;
         padding: 20px;
-        gap: 15px;
+        gap: 10px;
       }
       
-      .center h2 {
-        font-size: 2rem;
+      .about-title {
+        font-size: 2.5rem;
+      }
+      
+      .story-container {
+        padding: 30px 20px;
+      }
+      
+      .story-timeline {
+        padding-left: 30px;
+      }
+      
+      .timeline-item::before {
+        left: -37px;
       }
       
       .footer-inner {
-        flex-direction: column;
-        gap: 30px;
+        grid-template-columns: 1fr;
+        gap: 40px;
       }
     }
-    
-    /* Icons */
-    .icon {
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      stroke-width: 0;
-      stroke: currentColor;
-      fill: currentColor;
-    }
-    
+
     /* NoScript warning */
     .noscript-warning {
       background-color: #ffeb3b;
@@ -362,7 +553,7 @@
       <nav id="mainNav" class="main-nav" role="navigation">
         <ul>
           <li><a href="index.html">Нүүр</a></li>
-          <li><a href="about.html">Бидний тухай</a></li>
+          <li><a href="about.html" class="active">Бидний тухай</a></li>
           <li><a href="date.html">Болзох</a></li>
           <li><a href="diary.html">Өдрийн тэмдэглэл</a></li>
           <li><a href="goals.html">Зорилго</a></li>
@@ -377,58 +568,100 @@
   </header>
 
   <main class="container">
-    <section class="center">
-      <h2>Бидний түүх 💕</h2>
-      <p>10-р ангид анх нэг анги болон хуваарьлагдсан. Урьд нь бол нэгнийгээ хальт мэддэг л хүүхдүүд байлаа.
-        Тухайн жил короно вирус байсан болохоор нэг ангид олон хүүхдүүд суулгахгүй гээд 2 хуваагдаж ордог байсан юм.
-        Хавар нь ангиараа цуг орж багш маань намайг чамтай суулгасандаа. Чамтай цуг суухад уйдадгүй байж билээ.
-        Их л хөгжилтэй байнга нийлж хов баздаг, хичээлээ хийдэг, заал авдаг байсан. 11-р ангид орж ирээд арай
-        өөр нүдээр харагдаж билээ. Нээх хөөрхөөн сэтгэлд дулаахан Багш чи бид хоёрыг салгаж суулгахад буцаж цуг
-        суух гэж мөн ч их хичээсэндээ даанч бүтэлгүйтсэндээ.Чамайгаа найрах гэж мөн ч их хичээсэн ч цаг нь биш байсан байх.
-        Дараа жилийн зун над руу чат бичихэд мөн ч их гайхсандаа даанч ахиад бүтэлгүйтсэндээ. 2025.01 над руу ахиад бичихэд
-        хайрыг ч гэж бодоогүй байсан аккоунт руу нь орж хараад шок хха. Тэр мөчөөс хойш миний амьдралд өнгө нэмсээр явч байнадаа.
-        🥰</p>
-      <p>Хайрт чамдаа төрсөн мэнд хүргэе. 19 нас хүрсэн том аниа боллоо доо. Хамтдаа инээж, хамтдаа мөрөөдөж, хамтдаа зовж ирсэн
-        чи бид хоёрын түүхийг агуулах жижигхэн ертөнц энэ сайт юм ❤️</p>
+    <section class="about-hero fade-in">
+      <h1 class="about-title">
+        <span>💕</span>
+        Бидний түүх
+        <span>💕</span>
+      </h1>
+      <p class="about-subtitle">Хамтдаа бүтээсэн дурсамж, инээд, мөрөөдлийн түүх</p>
     </section>
-  </main>
 
-<footer class="site-footer" role="contentinfo">
-    <div class="container footer-inner">
-      <div class="footer-col">
-        <p class="brand-compact"><span class="brand-emoji">💞</span> <strong>Couple</strong></p>
-        <p class="muted">Хосуудын дурсамж, тэмдэглэл ба санаа хадгалах жижиг ертөнц.</p>
-        <div class="footer-newsletter" aria-label="Newsletter subscription">
-          <form class="footer-newsletter__form">
-           
-          </form>
+    <section class="story-container fade-in">
+      <div class="story-timeline">
+        <div class="timeline-item fade-in">
+          <div class="timeline-year">10-р анги</div>
+          <div class="timeline-content">
+            <p>10-р ангид анх нэг анги болон хуваарьлагдсан. Урьд нь бол нэгнийгээ хальт мэддэг л хүүхдүүд байлаа.</p>
+            <p>Тухайн жил <span class="highlight">короно вирус</span> байсан болохоор нэг ангид олон хүүхдүүд суулгахгүй гээд 2 хуваагдаж ордог байсан юм.</p>
+            <p>Хавар нь ангиараа цуг орж багш маань намайг <span class="highlight">чамтай суулгасандаа</span>. Чамтай цуг суухад уйдадгүй байж билээ.</p>
+            <p>Их л хөгжилтэй байнга нийлж хов баздаг, хичээлээ хийдэг, заал авдаг байсан.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-year">11-р анги</div>
+          <div class="timeline-content">
+            <p>11-р ангид орж ирээд арай <span class="highlight">өөр нүдээр харагдаж</span> билээ. Нээх хөөрхөөн сэтгэлд дулаахан...</p>
+            <p>Багш чи бид хоёрыг салгаж суулгахад буцаж цуг суух гэж мөн ч их хичээсэндээ даанч бүтэлгүйтсэндээ.</p>
+            <p>Чамайгаа найрах гэж мөн ч их хичээсэн ч <span class="highlight">цаг нь биш байсан</span> байх.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-year">Дараа жилийн зун</div>
+          <div class="timeline-content">
+            <p>Дараа жилийн зун над руу чат бичихэд мөн ч их гайхсандаа даанч ахиад бүтэлгүйтсэндээ.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-year">2025.01</div>
+          <div class="timeline-content">
+            <p>2025.01 над руу ахиад бичихэд <span class="highlight">хайрыг ч гэж бодоогүй</span> байсан аккоунт руу нь орж хараад шок хха.</p>
+            <p>Тэр мөчөөс хойш миний амьдралд <span class="highlight">өнгө нэмсээр явч</span> байнадаа. 🥰</p>
+          </div>
         </div>
       </div>
 
-      <nav class="footer-col" aria-label="Footer navigation">
-        <h4>Холбоосууд</h4>
-        <ul class="footer-links">
-          <li><a href="index.html">Нүүр</a></li>
-          <li><a href="about.html">Бидний тухай</a></li>
-          <li><a href="date.html">Болзох</a></li>
-          <li><a href="diary.html">Өдрийн тэмдэглэл</a></li>
-          <li><a href="goals.html">Зорилго</a></li>
-          <li><a href="gallery.html">Галлерей</a></li>
-        </ul>
-      </nav>
-
-      <div class="footer-col">
-        <h4>Хайртайгаа холбогдох</h4>
-        <div class="social" aria-label="Social links">
-          <a href="https://www.instagram.com/tuvshuuu__/" class="social-link" aria-label="Instagram">
-            <svg class="icon" width="20" height="20" aria-hidden="true">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-          </a>
-          
+      <div class="love-message fade-in">
+        <div class="love-message-content">
+          <h3>💖 Хайрт чамдаа 💖</h3>
+          <p>Төрсөн мэнд хүргэе. 19 нас хүрсэн том аниа боллоо доо. Хамтдаа инээж, хамтдаа мөрөөдөж, хамтдаа зовж ирсэн чи бид хоёрын түүхийг агуулах жижигхэн ертөнц энэ сайт юм ❤️</p>
         </div>
-        <p class="copyright">© <span class="js-year">2025</span> Couple. All rights reserved.</p>
-        <p style="margin-top:.6rem"><button class="back-to-top js-back-to-top" aria-label="Back to top">↑ Буцах</button></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <p class="brand-compact"><span class="brand-emoji">💞</span> <strong>Couple</strong></p>
+          <p class="muted">Хосуудын дурсамж, тэмдэглэл ба санаа хадгалах жижиг ертөнц. Хамтдаа бүтээсэн мөч бүр үнэтэй.</p>
+          <div class="social" aria-label="Social links">
+            <a href="https://www.instagram.com/tuvshuuu__/" class="social-link" aria-label="Instagram">
+              <svg class="icon" width="20" height="20" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <nav class="footer-col" aria-label="Footer navigation">
+          <h4>Холбоосууд</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">🏠 Нүүр</a></li>
+            <li><a href="about.html">👫 Бидний тухай</a></li>
+            <li><a href="date.html">💌 Болзох</a></li>
+            <li><a href="diary.html">📝 Өдрийн тэмдэглэл</a></li>
+            <li><a href="goals.html">🎯 Зорилго</a></li>
+            <li><a href="gallery.html">📸 Галлерей</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col">
+          <h4>Холбогдох</h4>
+          <p class="muted">Асуулт, санал хүсэлтээ бидэн рүү илгээнэ үү.</p>
+          <button class="back-to-top js-back-to-top" aria-label="Back to top">
+            <span>Дээш буцах</span>
+            <span>↑</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>© <span class="js-year">2025</span> Couple. Бүх эрх хуулиар хамгаалагдсан. 💖</p>
       </div>
     </div>
   </footer>
@@ -481,37 +714,52 @@
         backToTopBtn.style.transition = 'opacity 0.3s, visibility 0.3s';
       }
       
-      // Мэйл бүртгүүлэх форм
-      const newsletterForm = document.querySelector('.footer-newsletter__form');
-      if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const emailInput = this.querySelector('.footer-newsletter__email');
-          if (emailInput && emailInput.value) {
-            alert('Бүртгүүлсэн баярлалаа! ' + emailInput.value);
-            emailInput.value = '';
+      // Fade-in animation
+      const fadeElements = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
           }
         });
-      }
+      }, { threshold: 0.1 });
       
-      // Профайл товч
+      fadeElements.forEach(element => {
+        observer.observe(element);
+      });
+      
+      // Profile button
       const profileBtn = document.querySelector('.profile-btn');
       if (profileBtn) {
         profileBtn.addEventListener('click', function() {
-          alert('Профайл хэсэг хөгжүүлэгдэж байна...');
+          alert('💖 Энэ бол зөвхөн бидний түүх...');
         });
       }
+
+      // Timeline item hover effects
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      timelineItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateX(10px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateX(0)';
+        });
+      });
     });
   </script>
   
   <noscript>
     <style>
       .main-nav { display:block !important; }
+      .fade-in { opacity: 1; transform: none; }
     </style>
-    <div class="noscript-warning">JavaScript-ыг идэвхжүүлнэ үү (илүү сайн навигацийн туршлага)</div>
+    <div class="noscript-warning">JavaScript-ыг идэвхжүүлнэ үү (илүү сайн туршлага авахын тулд)</div>
   </noscript>
 </body>
 </html>
+
 
 
 
